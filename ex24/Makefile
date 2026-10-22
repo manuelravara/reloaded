@@ -17,20 +17,24 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
-SOURCES = ft_putchar.c ft_putstr.c ft_strcmp.c ft_strlen.c ft_swap.c \
+SRCS = srcs/ft_putchar.c \
+		srcs/ft_putstr.c \
+		srcs/ft_strcmp.c \
+		srcs/ft_strlen.c \
+		srcs/ft_swap.c
 
-OBJECTS = $(SOURCES:.c=.o)
-
-.c.o: $(SOURCES)
-		$(CC) $(CFLAGS) -c -o $@ $<
-
-$(NAME): $(OBJECTS)
-		$(AR) $(NAME) $(OBJECTS)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
+$(NAME): $(OBJS)
+		$(AR) $(NAME) $(OBJS)
+
+srcs/%.o: srcs/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+	
 clean:
-		$(RM) $(OBJECTS) $(B_OBJECTS)
+		$(RM) $(OBJS)
 
 fclean: clean
 		$(RM) $(NAME)
